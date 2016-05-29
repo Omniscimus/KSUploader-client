@@ -1,7 +1,6 @@
-package it.ksuploader.utils;
+package it.ksuploader.client.utils;
 
-import it.ksuploader.main.Main;
-
+import it.ksuploader.client.Main;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -11,7 +10,7 @@ import java.util.Arrays;
 
 public class Sound extends Thread {
 
-	private static final URL clickUrl = Sound.class.getResource("/res/complete.wav");
+	private static final URL clickUrl = Sound.class.getResource("/complete.wav");
 
 	public Sound() {
 	}

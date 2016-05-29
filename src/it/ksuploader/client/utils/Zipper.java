@@ -1,7 +1,6 @@
-package it.ksuploader.utils;
+package it.ksuploader.client.utils;
 
-import it.ksuploader.main.Main;
-
+import it.ksuploader.client.Main;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;

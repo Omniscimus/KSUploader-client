@@ -1,5 +1,4 @@
-package it.ksuploader.main;
-
+package it.ksuploader.client;
 
 import java.io.*;
 import java.net.InetSocketAddress;

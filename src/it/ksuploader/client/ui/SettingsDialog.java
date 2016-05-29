@@ -1,7 +1,7 @@
-package it.ksuploader.dialogs;
+package it.ksuploader.client.ui;
 
-import it.ksuploader.main.Main;
-import it.ksuploader.utils.MyKeyListener;
+import it.ksuploader.client.Main;
+import it.ksuploader.client.utils.MyKeyListener;
 import org.jnativehook.GlobalScreen;
 import org.jnativehook.SwingDispatchService;
 import org.jnativehook.keyboard.NativeKeyEvent;
@@ -14,7 +14,7 @@ import java.io.File;
 import java.util.Arrays;
 import java.util.HashSet;
 
-import static it.ksuploader.main.Main.myLog;
+import static it.ksuploader.client.Main.myLog;
 
 @SuppressWarnings("serial")
 public class SettingsDialog extends JDialog implements NativeKeyListener {

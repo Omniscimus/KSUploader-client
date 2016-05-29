@@ -1,6 +1,6 @@
-package it.ksuploader.dialogs;
+package it.ksuploader.client.ui;
 
-import it.ksuploader.main.Main;
+import it.ksuploader.client.Main;
 
 import javax.swing.*;
 import java.awt.*;

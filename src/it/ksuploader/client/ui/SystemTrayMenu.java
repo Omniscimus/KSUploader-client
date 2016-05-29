@@ -1,10 +1,13 @@
-package it.ksuploader.main;
+package it.ksuploader.client.ui;
 
-
-import it.ksuploader.dialogs.SettingsDialog;
-import it.ksuploader.utils.MyKeyListener;
-import it.ksuploader.utils.Sound;
-import it.ksuploader.utils.Zipper;
+import it.ksuploader.client.FtpUploader;
+import it.ksuploader.client.Main;
+import it.ksuploader.client.SocketUploader;
+import it.ksuploader.client.ui.MyScreen;
+import it.ksuploader.client.ui.SettingsDialog;
+import it.ksuploader.client.utils.MyKeyListener;
+import it.ksuploader.client.utils.Sound;
+import it.ksuploader.client.utils.Zipper;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -70,7 +73,7 @@ public class SystemTrayMenu {
             try {
                 clpbrd = Toolkit.getDefaultToolkit().getSystemClipboard();
                 SystemTray systemTray = getSystemTray();
-                trayIcon = new TrayIcon(new ImageIcon(getClass().getResource("/res/icon.png")).getImage(), "KSUploader");
+                trayIcon = new TrayIcon(new ImageIcon(getClass().getResource("/icon.png")).getImage(), "KSUploader");
                 trayIcon.setImageAutoSize(true);
 
                 popupMenu = new PopupMenu();

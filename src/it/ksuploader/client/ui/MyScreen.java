@@ -1,5 +1,6 @@
-package it.ksuploader.main;
+package it.ksuploader.client.ui;
 
+import it.ksuploader.client.Main;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -82,7 +83,7 @@ public class MyScreen extends JPanel {
 		panel.addKeyListener(keyHandler);
 		panel.setModal(true);
 		panel.setUndecorated(true);
-		panel.setCursor(Toolkit.getDefaultToolkit().createCustomCursor(new ImageIcon(getClass().getResource("/res/cursor.png")).getImage(),
+		panel.setCursor(Toolkit.getDefaultToolkit().createCustomCursor(new ImageIcon(getClass().getResource("/cursor.png")).getImage(),
 				new Point(16, 16),
 				"img"));
 		panel.setBackground(new Color(0, 0, 0, 0));

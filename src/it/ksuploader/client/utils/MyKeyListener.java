@@ -1,6 +1,6 @@
-package it.ksuploader.utils;
+package it.ksuploader.client.utils;
 
-import it.ksuploader.main.Main;
+import it.ksuploader.client.Main;
 import org.jnativehook.GlobalScreen;
 import org.jnativehook.NativeHookException;
 import org.jnativehook.keyboard.NativeKeyEvent;
@@ -12,8 +12,8 @@ import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static it.ksuploader.main.Main.myLog;
-import static it.ksuploader.main.Main.st;
+import static it.ksuploader.client.Main.myLog;
+import static it.ksuploader.client.Main.st;
 
 public class MyKeyListener {
     public static HashMap<Integer, String> fromKeyToName = new HashMap<>();

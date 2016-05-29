@@ -1,4 +1,4 @@
-package it.ksuploader.utils;
+package it.ksuploader.client.utils;
 
 import java.awt.*;
 import java.io.File;

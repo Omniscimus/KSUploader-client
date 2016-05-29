@@ -1,7 +1,6 @@
-package it.ksuploader.utils;
+package it.ksuploader.client;
 
-
-import it.ksuploader.main.Main;
+import it.ksuploader.client.Main;
 
 import java.io.*;
 import java.util.Arrays;

@@ -1,4 +1,4 @@
-package it.ksuploader.main;
+package it.ksuploader.client;
 
 import it.sauronsoftware.ftp4j.*;
 

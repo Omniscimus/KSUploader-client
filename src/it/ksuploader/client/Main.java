@@ -1,9 +1,9 @@
-package it.ksuploader.main;
+package it.ksuploader.client;
 
-import it.ksuploader.dialogs.PopupDialog;
-import it.ksuploader.utils.Environment;
-import it.ksuploader.utils.LoadConfig;
-import it.ksuploader.utils.MyKeyListener;
+import it.ksuploader.client.ui.SystemTrayMenu;
+import it.ksuploader.client.ui.PopupDialog;
+import it.ksuploader.client.utils.Environment;
+import it.ksuploader.client.utils.MyKeyListener;
 
 import javax.swing.*;
 import java.io.File;
