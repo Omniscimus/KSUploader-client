@@ -1,8 +1,8 @@
-/bin/
+# System
 
-######################
+.DS_Store
+
 # Eclipse
-######################
  
 *.pydevproject
 .metadata
@@ -19,19 +19,12 @@ local.properties
 .settings/
 .loadpath
 /src/main/resources/rebel.xml
-# External tool builders
-.externalToolBuilders/
- 
-# Locally stored "Eclipse launch configurations"
+.externalToolBuilders/ 
 *.launch
- 
-# CDT-specific
 .cproject
- 
-# PDT-specific
 .buildpath
 
-#NetBeans
+# NetBeans
 
 dist/
 nbproject/
@@ -42,7 +35,8 @@ config.properties
 manifest.mf
 client.properties
 
-#jetbrains
+# JetBrains
+
 out/
 .idea/
 *.iml
