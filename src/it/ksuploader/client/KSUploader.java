@@ -36,7 +36,7 @@ public class KSUploader {
     public static KSUploader inst;
 
     private final Environment environment;
-    private LoadConfig config;
+    private Configuration config;
     private SystemTrayMenu tray;
     private MyKeyListener keyListener;
     private PopupDialog popup;
@@ -58,16 +58,27 @@ public class KSUploader {
         logger.log(Level.FINE, "Starting KSUploader client. {0}", new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(new Date()));
         logger.log(Level.FINE, "Operating system is: {0}", environment.toString());
 
-        this.config = new LoadConfig();
+        File configDir = environment.getConfigurationDirectory();
+        if (configDir == null) {
+            logger.log(Level.SEVERE, "Cannot start the program without a configuration file!");
+            return;
+        }
+        try {
+            config = new Configuration(configDir);
+        } catch (IOException ex) {
+            logger.log(Level.SEVERE, "I/O error while trying to read the configuration file.", ex);
+            return;
+        }
+
         autoStartCheck();
         SwingUtilities.invokeLater(() -> this.tray = new SystemTrayMenu());
         this.keyListener = new MyKeyListener();
         this.popup = new PopupDialog();
     }
-    
+
     /**
      * Gets the Environment in which this application resides.
-     * 
+     *
      * @return the current Environment
      */
     public Environment getEnvironment() {
@@ -88,7 +99,7 @@ public class KSUploader {
      * if it's configured to do so.
      */
     private void autoStartCheck() {
-        if (config.isStartUpEnabled()) {
+        if ((Boolean)Configuration.Setting.OPEN_AT_STARTUP_ENABLED.getValue()) {
             if (!environment.autoStartIsEnabled()) {
                 environment.enableAutoStart();
             }
@@ -103,7 +114,11 @@ public class KSUploader {
      * Reloads the application's configuration file.
      */
     public void reloadConfiguration() {
-        config = new LoadConfig();
+        try {
+            config = new Configuration(environment.getConfigurationDirectory());
+        } catch (IOException ex) {
+            logger.log(Level.WARNING, "I/O error while trying to read the configuration file.", ex);
+        }
     }
 
 }
