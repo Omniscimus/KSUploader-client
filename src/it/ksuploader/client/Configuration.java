@@ -178,19 +178,19 @@ public class Configuration extends Properties {
         /**
          * The keyboard shortcut to capture an area of the screen.
          */
-        SHORTCUT_SCREEN("shortcut_screen", "56+2"),
+        SHORTCUT_PARTIAL_SCREENSHOT("shortcut_screen", new int[]{56, 2}),
         /**
          * The keyboard shortcut to capture the entire screen.
          */
-        SHORTCUT_COMPLETE_SCREEN("shortcut_complete_screen", "56+3"),
+        SHORTCUT_COMPLETE_SCREENSHOT("shortcut_complete_screen", new int[]{56, 3}),
         /**
          * The keyboard shortcut to upload a file.
          */
-        SHORTCUT_FILE("shortcut_file", "56+4"),
+        SHORTCUT_FILE("shortcut_file", new int[]{56, 4}),
         /**
          * The keyboard shortcut to upload the contents of the system clipboard.
          */
-        SHORTCUT_CLIPBOARD("key_clipboard", "56+5");
+        SHORTCUT_CLIPBOARD("key_clipboard", new int[]{56, 5});
 
         private final String configKey;
         private final Object defaultValue;

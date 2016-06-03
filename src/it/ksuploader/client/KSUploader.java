@@ -3,7 +3,7 @@ package it.ksuploader.client;
 import it.ksuploader.client.ui.SystemTrayMenu;
 import it.ksuploader.client.ui.PopupDialog;
 import it.ksuploader.client.utils.Environment;
-import it.ksuploader.client.utils.MyKeyListener;
+import it.ksuploader.client.utils.ShortcutListener;
 
 import java.io.File;
 import java.io.IOException;
@@ -38,7 +38,7 @@ public class KSUploader {
     private final Environment environment;
     private Configuration config;
     private SystemTrayMenu tray;
-    private MyKeyListener keyListener;
+    private ShortcutListener shortcutListener;
     private PopupDialog popup;
 
     private KSUploader() {
@@ -72,7 +72,7 @@ public class KSUploader {
 
         autoStartCheck();
         SwingUtilities.invokeLater(() -> this.tray = new SystemTrayMenu());
-        this.keyListener = new MyKeyListener();
+        this.shortcutListener = new ShortcutListener();
         this.popup = new PopupDialog();
     }
 
@@ -82,7 +82,25 @@ public class KSUploader {
      * @return the current Environment
      */
     public Environment getEnvironment() {
-        return this.environment;
+        return environment;
+    }
+
+    /**
+     * Gets the application's Configuration object.
+     *
+     * @return Configuration instance
+     */
+    public Configuration getConfig() {
+        return config;
+    }
+
+    /**
+     * Gets the SystemTrayMenu object.
+     *
+     * @return SystemTrayMenu instance
+     */
+    public SystemTrayMenu getSystemTrayMenu() {
+        return tray;
     }
 
     /**
@@ -99,7 +117,7 @@ public class KSUploader {
      * if it's configured to do so.
      */
     private void autoStartCheck() {
-        if ((Boolean)Configuration.Setting.OPEN_AT_STARTUP_ENABLED.getValue()) {
+        if ((Boolean) Configuration.Setting.OPEN_AT_STARTUP_ENABLED.getValue()) {
             if (!environment.autoStartIsEnabled()) {
                 environment.enableAutoStart();
             }
