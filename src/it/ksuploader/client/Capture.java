@@ -19,6 +19,7 @@ import java.io.PrintWriter;
 import java.io.Serializable;
 import java.util.List;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
 
@@ -58,7 +59,11 @@ public class Capture {
                     file = selectedFiles[0];
                 } else if (selectedFiles.length > 1) {
                     file = createTempFile(TEMP_FILE_PREFIX, TEMP_ZIP_FILE_SUFFIX);
-                    Zipper.toZip(selectedFiles, file);
+                    try {
+                        Zipper.toZip(selectedFiles, file);
+                    } catch (IOException ex) {
+                        throw new CaptureException("File capturing failed: couldn't store the files in a ZIP archive.", ex);
+                    }
                 }
                 break;
             default:
