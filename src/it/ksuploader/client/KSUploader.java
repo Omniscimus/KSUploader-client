@@ -4,6 +4,7 @@ import it.ksuploader.client.ui.SystemTrayMenu;
 import it.ksuploader.client.ui.PopupDialog;
 import it.ksuploader.client.utils.Environment;
 import it.ksuploader.client.utils.ShortcutListener;
+import it.ksuploader.client.utils.Sound;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,6 +14,8 @@ import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.SwingUtilities;
 
 /**
@@ -35,6 +38,7 @@ public class KSUploader {
      */
     public static KSUploader inst;
 
+    private Sound sound;
     private final Environment environment;
     private Configuration config;
     private SystemTrayMenu tray;
@@ -68,6 +72,16 @@ public class KSUploader {
         } catch (IOException ex) {
             logger.log(Level.SEVERE, "I/O error while trying to read the configuration file.", ex);
             return;
+        }
+
+        try {
+            sound = new Sound(Sound.URL_TO_SUCCESS_SOUND);
+        } catch (UnsupportedAudioFileException ex) {
+            logger.log(Level.WARNING, "Couldn't load the application's success sound: invalid file.", ex);
+        } catch (IOException ex) {
+            logger.log(Level.WARNING, "I/O error while trying to load the application's success sound.", ex);
+        } catch (LineUnavailableException ex) {
+            logger.log(Level.WARNING, "Couldn't load the application's success sound due to system resource restrictions.", ex);
         }
 
         autoStartCheck();
@@ -137,6 +151,20 @@ public class KSUploader {
         } catch (IOException ex) {
             logger.log(Level.WARNING, "I/O error while trying to read the configuration file.", ex);
         }
+    }
+
+    /**
+     * Runs the application's success sound.
+     *
+     * @return a boolean indicating the success of this operation
+     */
+    public boolean runSound() {
+        if (sound == null) {
+            logger.log(Level.FINE, "Tried to run the success sound, but it's not available.");
+            return false;
+        }
+        sound.start();
+        return true;
     }
 
 }

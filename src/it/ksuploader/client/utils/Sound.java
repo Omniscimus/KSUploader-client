@@ -1,37 +1,54 @@
 package it.ksuploader.client.utils;
 
-import it.ksuploader.client.Main;
+import java.io.IOException;
+import java.net.URL;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.DataLine;
-import java.net.URL;
-import java.util.Arrays;
+import javax.sound.sampled.AudioFormat;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
+/**
+ * Represents one of the application's sounds.
+ */
 public class Sound extends Thread {
 
-	private static final URL clickUrl = Sound.class.getResource("/complete.wav");
+    /**
+     * A URL to the success sound inside the JAR file.
+     */
+    public static final URL URL_TO_SUCCESS_SOUND = Sound.class.getResource("/complete.wav");
 
-	public Sound() {
-	}
+    private final Clip clip;
 
-	@Override
-	public void run() {
-		AudioInputStream audioInputStream;
+    /**
+     * Loads the sound data into a new Sound object.
+     *
+     * @param toSoundFile A URL to the file containing the audio data.
+     * @throws UnsupportedAudioFileException If the URL does not point to valid
+     * audio file data recognized by the system.
+     * @throws IOException If an I/O error occurs while reading the file.
+     * @throws LineUnavailableException If the audio file cannot be read due to
+     * resource restrictions.
+     */
+    public Sound(URL toSoundFile) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+        try (AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(toSoundFile)) {
+            AudioFormat format = audioInputStream.getFormat();
+            byte[] audioData = new byte[audioInputStream.available()];
+            audioInputStream.read(audioData);
 
-		try {
-			audioInputStream = AudioSystem.getAudioInputStream(clickUrl);
+            DataLine.Info info = new DataLine.Info(Clip.class, format);
+            clip = (Clip) AudioSystem.getLine(info);
+            clip.open(format, audioData, 0, audioData.length);
+        }
+    }
 
-			DataLine.Info info = new DataLine.Info(Clip.class, audioInputStream.getFormat());
-			Clip clip = (Clip) AudioSystem.getLine(info);
-			if (clip.isRunning()) {
-				clip.close();
-			}
-			clip.open(audioInputStream);
-			clip.start();
-		} catch (Exception e) {
-			e.printStackTrace();
-            Main.myErr(Arrays.toString(e.getStackTrace()).replace(",", "\n"));
-		}
-	}
+    @Override
+    public void run() {
+        if (clip.isRunning()) {
+            clip.close();
+        }
+        clip.start();
+    }
 }
