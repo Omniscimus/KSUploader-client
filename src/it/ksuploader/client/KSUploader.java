@@ -38,7 +38,6 @@ public class KSUploader {
      */
     public static KSUploader inst;
 
-    private Sound sound;
     private final Environment environment;
     private Configuration config;
     private SystemTrayMenu tray;
@@ -72,16 +71,6 @@ public class KSUploader {
         } catch (IOException ex) {
             logger.log(Level.SEVERE, "I/O error while trying to read the configuration file.", ex);
             return;
-        }
-
-        try {
-            sound = new Sound(Sound.URL_TO_SUCCESS_SOUND);
-        } catch (UnsupportedAudioFileException ex) {
-            logger.log(Level.WARNING, "Couldn't load the application's success sound: invalid file.", ex);
-        } catch (IOException ex) {
-            logger.log(Level.WARNING, "I/O error while trying to load the application's success sound.", ex);
-        } catch (LineUnavailableException ex) {
-            logger.log(Level.WARNING, "Couldn't load the application's success sound due to system resource restrictions.", ex);
         }
 
         autoStartCheck();
@@ -159,12 +148,17 @@ public class KSUploader {
      * @return a boolean indicating the success of this operation
      */
     public boolean runSound() {
-        if (sound == null) {
-            logger.log(Level.FINE, "Tried to run the success sound, but it's not available.");
-            return false;
+        try {
+            new Sound(Sound.URL_TO_SUCCESS_SOUND).start();
+            return true;
+        } catch (UnsupportedAudioFileException ex) {
+            logger.log(Level.WARNING, "Couldn't load the application's success sound: invalid file.", ex);
+        } catch (IOException ex) {
+            logger.log(Level.WARNING, "I/O error while trying to load the application's success sound.", ex);
+        } catch (LineUnavailableException ex) {
+            logger.log(Level.WARNING, "Couldn't load the application's success sound due to system resource restrictions.", ex);
         }
-        sound.start();
-        return true;
+        return false;
     }
 
 }

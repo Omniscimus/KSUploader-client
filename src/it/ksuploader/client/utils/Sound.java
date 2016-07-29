@@ -7,6 +7,7 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.DataLine;
 import javax.sound.sampled.AudioFormat;
+import javax.sound.sampled.LineEvent;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
@@ -41,6 +42,11 @@ public class Sound extends Thread {
             DataLine.Info info = new DataLine.Info(Clip.class, format);
             clip = (Clip) AudioSystem.getLine(info);
             clip.open(format, audioData, 0, audioData.length);
+            clip.addLineListener((LineEvent event) -> {
+                if (event.getType() == LineEvent.Type.STOP) {
+                    clip.close();
+                }
+            });
         }
     }
 
